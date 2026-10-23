@@ -21,7 +21,7 @@ WaveBombzEndlessSmileAudioProcessorEditor::WaveBombzEndlessSmileAudioProcessorEd
     };
     intensity.valueFromTextFunction = [](const juce::String& text)
     {
-        return text.retainCharacters("0123456789.-").getDoubleValue() / 100.0;
+        return text.getDoubleValue() / 100.0;
     };
     intensity.setLookAndFeel(nullptr);
     addAndMakeVisible(intensity);
