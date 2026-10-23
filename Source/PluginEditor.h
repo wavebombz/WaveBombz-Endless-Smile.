@@ -15,7 +15,7 @@ private:
     WaveBombzEndlessSmileAudioProcessor& audioProcessor;
     juce::Slider intensity;
     juce::ComboBox character;
-    juce::Label title, intensityLabel, characterLabel;
+    juce::Label title, subtitle, intensityLabel, characterLabel;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> intensityAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> characterAttachment;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WaveBombzEndlessSmileAudioProcessorEditor)
