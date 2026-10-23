@@ -14,10 +14,15 @@ WaveBombzEndlessSmileAudioProcessorEditor::WaveBombzEndlessSmileAudioProcessorEd
 
     intensity.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
     intensity.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 100, 24);
-    intensity.setTextValueSuffix(" %");
-    intensity.setNumDecimalPlacesToDisplay(0);
-    intensity.setRange(0.0, 100.0, 0.1);
-    intensity.setSkewFactorFromMidPoint(65.0);
+    intensity.setRange(0.0, 1.0, 0.001);
+    intensity.textFromValueFunction = [](double value)
+    {
+        return juce::String(juce::roundToInt(value * 100.0)) + " %";
+    };
+    intensity.valueFromTextFunction = [](const juce::String& text)
+    {
+        return text.retainCharacters("0123456789.-").getDoubleValue() / 100.0;
+    };
     intensity.setLookAndFeel(nullptr);
     addAndMakeVisible(intensity);
 
