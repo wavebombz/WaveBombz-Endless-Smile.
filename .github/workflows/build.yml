@@ -1,0 +1,30 @@
+name: Build VST3
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build clang pkg-config libasound2-dev libjack-jackd2-dev \
+            libfreetype6-dev libfontconfig1-dev libx11-dev libxinerama-dev libxrandr-dev libxcursor-dev \
+            libxcomposite-dev libxext-dev libxfixes-dev libxrender-dev libgl1-mesa-dev libwebkit2gtk-4.1-dev
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+      - name: Build VST3
+        run: cmake --build build --target WaveBombzEndlessSmile_VST3 --parallel 2
+      - name: Upload VST3 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WaveBombz-Endless-Smile-VST3-linux
+          path: build/WaveBombzEndlessSmile_artefacts/Release/VST3/
+          if-no-files-found: error
